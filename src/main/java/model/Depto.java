@@ -3,44 +3,70 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Depto")
 public class Depto extends Unidad{
-	private String depto;
-	private Usuario Propietario;
-	private ArrayList<Usuario> Inquilinos;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String IdDepto;
+	@ManyToOne
+	@JoinColumn(name = "IdPropietario")
+	private Propietario Propietario;
+	@OneToMany(mappedBy = "Depto", cascade = CascadeType.ALL)
+	private List<Inquilino> Inquilinos;
 	private boolean alquiler;
 	
 	
-	public Depto(String depto, Usuario propietario, ArrayList<Usuario> inqulinos, boolean alquiler) {
-		super();
-		this.depto = depto;
+	public Depto(int Piso, Propietario propietario, List<Inquilino> inqulinos, boolean alquiler) {
+		super(Piso);
 		Propietario = propietario;
-		Inquilinos = inqulinos;
+		Inquilinos = new ArrayList<Inquilino>() ;
 		this.alquiler = alquiler;
 	}
-	public void AgregarInquilino(Usuario inquilino) {
+	
+	
+	
+	public Depto(int Piso, Propietario propietario, boolean alquiler) {
+		super(Piso);
+		Propietario = propietario;
+		this.alquiler = alquiler;
+	}
+	
+	public void AgregarInquilino(Inquilino inquilino) {
 		Inquilinos.add(inquilino);
 	}
 	
-	public void EliminarInquilino(Usuario inquilino) {
+	public void EliminarInquilino(Inquilino inquilino) {
 		Inquilinos.remove(inquilino);
 	}
 	
-	public String getDepto() {
-		return depto;
+	public String getIdDepto() {
+		return IdDepto;
 	}
-	public void setDepto(String depto) {
-		this.depto = depto;
+	public void setDepto(String IdDepto) {
+		this.IdDepto = IdDepto;
 	}
 	public Usuario getPropietario() {
 		return Propietario;
 	}
-	public void setPropietario(Usuario propietario) {
+	public void setPropietario(Propietario propietario) {
 		Propietario = propietario;
 	}
-	public ArrayList<Usuario> getInqulinos() {
+	public List<Inquilino> getInqulinos() {
 		return Inquilinos;
 	}
-	public void setInqulinos(ArrayList<Usuario> inqulinos) {
+	public void setInqulinos(List<Inquilino> inqulinos) {
 		Inquilinos = inqulinos;
 	}
 	public boolean isAlquiler() {

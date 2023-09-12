@@ -1,25 +1,24 @@
 package model;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "usuario")
-public class Usuario {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int IdUsuario;
+import org.hibernate.cfg.Configuration;
+
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Usuario {
 	private String nombre;
 	private String apellido;
 	private String dni;
 	private String contraseña;
-	private ArrayList<Unidad> propiedades;
-	private Unidad vivienda;
+	
 
 
 	public Usuario(String nombre, String apellido, String dni, String contraseña) {
@@ -54,9 +53,6 @@ public class Usuario {
 		this.dni = dni;
 	}
 
-	public int getUsuario() {
-		return IdUsuario;
-	}
 
 
 	public String getContraseña() {
@@ -69,24 +65,11 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", usuario=" + IdUsuario
-				+ ", contraseña=" + contraseña + "]";
+		return "Usuario [nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", contraseña=" + contraseña + "]";
 	}
 
-	public Unidad getVivienda() {
-		return vivienda;
-	}
+	
 
-	public void setVivienda(Unidad vivienda) {
-		this.vivienda = vivienda;
-	}
-
-	public ArrayList<Unidad> getPropiedades() {
-		return propiedades;
-	}
-
-	public void setPropiedades(ArrayList<Unidad> propiedades) {
-		this.propiedades = propiedades;
-	}
+	
 
 }

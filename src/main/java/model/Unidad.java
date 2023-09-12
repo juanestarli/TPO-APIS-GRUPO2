@@ -2,21 +2,20 @@ package model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 
-public class Unidad {
-	private int IdUnidad;
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Unidad {
 	private int Piso;
 	
 	
 	public Unidad( int piso) {
 		Piso = piso;
 	}
-	public int getIdUnidad() {
-		return IdUnidad;
-	}
-	public void setIdUnidad(int idUnidad) {
-		IdUnidad = idUnidad;
-	}
+	
 	public int getPiso() {
 		return Piso;
 	}
