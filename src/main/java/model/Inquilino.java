@@ -2,12 +2,14 @@ package model;
 
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,33 +20,31 @@ public class Inquilino extends Usuario{
 	private int IdInquilino;
 	@ManyToOne
 	@JoinColumn(name = "IdDepto")
-	private Depto Depto;
+	private Depto depto;
+	@OneToMany(mappedBy = "IdInquilino", cascade = CascadeType.ALL)
+	private ArrayList<Reclamo> reclamos;
 	
 	
 	public Inquilino(String nombre, String apellido, String dni, String contraseña, Depto depto) {
 		super(nombre, apellido, dni, contraseña);
-		Depto = depto;
+		this.depto = depto;
 	}
 
 
-	public int getIdInquilino() {
-		return IdInquilino;
-	}
-
-
-	public void setIdInquilino(int idInquilino) {
-		IdInquilino = idInquilino;
-	}
+	
 
 
 	public Depto getDepto() {
-		return Depto;
+		return depto;
 	}
 
 
 	public void setDepto(Depto depto) {
-		Depto = depto;
+		this.depto = depto;
 	}
+
+
+	
 	
 	
 	

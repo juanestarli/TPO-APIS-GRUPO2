@@ -23,7 +23,7 @@ public class Depto extends Unidad{
 	@ManyToOne
 	@JoinColumn(name = "IdPropietario")
 	private Propietario Propietario;
-	@OneToMany(mappedBy = "Depto", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "depto", cascade = CascadeType.ALL)
 	private List<Inquilino> Inquilinos;
 	private boolean alquiler;
 	

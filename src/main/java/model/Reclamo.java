@@ -1,8 +1,22 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Reclamo")
 public class Reclamo {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int IdReclamo;
+	@ManyToOne
+	@JoinColumn(name = "IdUsuario")
 	private Usuario Usuario;
 	private Edificio Edificio;
 	private Unidad Unidad;
@@ -12,10 +26,10 @@ public class Reclamo {
 	private RespuestaReclamo Respuesta;
 	
 	
-	public Reclamo(int idReclamo, model.Usuario usuario, model.Edificio edificio, model.Unidad unidad,
+	public Reclamo (Usuario usuario, model.Edificio edificio, model.Unidad unidad,
 			String descripcion, String foto) {
 		super();
-		IdReclamo = idReclamo;
+		
 		Usuario = usuario;
 		Edificio = edificio;
 		Unidad = unidad;

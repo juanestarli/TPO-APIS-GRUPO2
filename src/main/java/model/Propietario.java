@@ -14,11 +14,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Propietario")
 public class Propietario extends Usuario{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int IdPropietario;
-	@OneToMany(mappedBy = "Propietario", cascade = CascadeType.ALL)
+	
+	@OneToMany(mappedBy = "IdPropietario", cascade = CascadeType.ALL)
 	private List<Depto> Propiedades;
+	@OneToMany(mappedBy = "IdPropietario", cascade = CascadeType.ALL)
+	private ArrayList<Reclamo> reclamos;
 
 	public Propietario(String nombre, String apellido, String dni, String contraseña) {
 		super(nombre, apellido, dni, contraseña);
@@ -26,14 +26,11 @@ public class Propietario extends Usuario{
 		this.Propiedades= new ArrayList<>();
 	}
 
-	public int getIdPropietario() {
-		return IdPropietario;
-	}
 
-	public void setIdPropietario(int idPropietario) {
-		IdPropietario = idPropietario;
+	public void addPropiedades(Depto depto ) {
+		Propiedades.add(depto);
 	}
-
+	
 	public List<Depto> getPropiedades() {
 		return Propiedades;
 	}
@@ -41,6 +38,12 @@ public class Propietario extends Usuario{
 	public void setPropiedades(List<Depto> propiedades) {
 		Propiedades = propiedades;
 	}
+
+
+
+	
+
+	
 
 	
 	

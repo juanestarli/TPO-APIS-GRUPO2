@@ -2,20 +2,28 @@ package model;
 
 import java.util.ArrayList;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Edificio {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int IdEdificio;
 	private String Calle;
 	private int Altura;
 	private ArrayList<Unidad> Unidades;
+	private ArrayList<Depto> departamentos;
+	private ArrayList<Usuario> usuarios;
 	
 	
 	
-	public Edificio(int idEdificio, String calle, int altura, ArrayList<Unidad> unidades) {
+	public Edificio(String calle, int altura, ArrayList<Unidad> unidades) {
 		super();
-		IdEdificio = idEdificio;
 		Calle = calle;
 		Altura = altura;
 		Unidades = unidades;
+		
 	}
 	
 	public Edificio() {
@@ -26,9 +34,7 @@ public class Edificio {
 	public int getIdEdificio() {
 		return IdEdificio;
 	}
-	public void setIdEdificio(int idEdificio) {
-		IdEdificio = idEdificio;
-	}
+	
 	public String getCalle() {
 		return Calle;
 	}
@@ -52,6 +58,12 @@ public class Edificio {
 		return "Edificio [IdEdificio=" + IdEdificio + ", Calle=" + Calle + ", Altura=" + Altura + ", Unidades="
 				+ Unidades + "]";
 	}
-	
+	public ArrayList<Depto> getDepartamentos(){
+		return this.departamentos;
+	}
+
+	public ArrayList<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
 	
 }
