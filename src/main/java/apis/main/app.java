@@ -30,9 +30,9 @@ public class app {
 		Transaction tx = session.beginTransaction();
 		//instanciar edificio
 		Edificio arcos2000 = new Edificio("Arcos", 2000, new ArrayList<Unidad>());
-		//instanciar propietarios
-		Propietario Juan = new Propietario("Juan","Estarli","44161556","Juan1234");
-		Propietario Rafa = new Propietario("Rafael","Gini","43651556","Rafa1234");
+		//instanciar Usuarios
+		Usuario Juan = new Usuario("Juan","Estarli","44161556","Juan1234");
+		Usuario Rafa = new Usuario("Rafael","Gini","43651556","Rafa1234");
 		
 		//instanciar deptos
 		Departamento piso7b = new Departamento(7,'b',Juan,false);
@@ -41,11 +41,11 @@ public class app {
 		//instanciar espacios comunes
 		EspacioComun Pileta = new EspacioComun(15, "Pileta", "Sector pileta");
 		EspacioComun Sum = new EspacioComun(15, "Sum", "Salon de usos multiples");
-		//instanciar inquilinos
-		Inquilino Martin = new Inquilino("Martin", "Ramirez", "45637263", "Martin1234", piso3b);
-		Inquilino Juana = new Inquilino("Juana","Garcia","64758798","Juana1234",piso3b);
-		Inquilino Ramon = new Inquilino("Ramon","Perez","26875687","Ramon1234",piso7b);
-		Inquilino Marta = new Inquilino("Marta","Gonzalez","4352676","Marta1234",piso5a);
+		//instanciar Usuarios
+		Usuario Martin = new Usuario("Martin", "Ramirez", "45637263", "Martin1234");
+		Usuario Juana = new Usuario("Juana","Garcia","64758798","Juana1234");
+		Usuario Ramon = new Usuario("Ramon","Perez","26875687","Ramon1234");
+		Usuario Marta = new Usuario("Marta","Gonzalez","4352676","Marta1234");
 		
 
 		session.save(arcos2000);
@@ -78,9 +78,9 @@ public class app {
 		
 		public static void generarReclamoParticular(int userId, int edificioId, int departamentoId, String descripcionReclamo, String urlImagen, Session session) {
 			Departamento departamento = getDepartamentoHQL(departamentoId, session);
-			if (departamento.getInqulinos().size() != 0 && departamento.getPropietario().getId() == userId) 
+			if (departamento.getInqulinos().size() != 0 && departamento.getUsuario().getId() == userId) 
 				return;
-			if (!pertenece(userId, departamento.getInqulinos()) && departamento.getPropietario().getId() != userId) 
+			if (!pertenece(userId, departamento.getInqulinos()) && departamento.getUsuario().getId() != userId) 
 				return;
 			Usuario user = getUsuarioHQL(userId, session);
 			Edificio edificio = getEdificioHQL(edificioId, session);
@@ -102,12 +102,12 @@ public class app {
 			return i != cantidadUsuarios;
 		}
 		
-		private static boolean pertenece(int userId, List<Inquilino> inquilinos) {
-			int cantidadInquilinos = inquilinos.size();
+		private static boolean pertenece(int userId, List<Usuario> Usuarios) {
+			int cantidadUsuarios = Usuarios.size();
 			int i = 0;
-			while (i < cantidadInquilinos && inquilinos.get(i).getId() != userId)
+			while (i < cantidadUsuarios && Usuarios.get(i).getId() != userId)
 				i++;
-			return i != cantidadInquilinos;
+			return i != cantidadUsuarios;
 		}
 
 		private static Edificio getEdificioHQL(int edificioId, Session session) {
