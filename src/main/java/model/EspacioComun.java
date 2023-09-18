@@ -4,12 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class EspacioComun{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEspacioComun;
+	@ManyToOne
+	@JoinColumn(name = "edificio")
+	private Edificio edificio;
 	private int piso;
 	private String nombre;
 	private String descripcion;

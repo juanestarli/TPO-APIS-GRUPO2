@@ -1,35 +1,49 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "RespuestaReclamo")
 public class RespuestaReclamo {
-	private int IdRespuesta;
-	private Reclamo Reclamo;
-	private String Descripcion;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idRespuesta;
+	@OneToOne
+    @JoinColumn(name = "idReclamo")
+	private Reclamo reclamo;
+	private String descripcion;
 	
 	
 	public RespuestaReclamo(int idRespuesta, model.Reclamo reclamo, String descripcion) {
 		super();
-		IdRespuesta = idRespuesta;
-		Reclamo = reclamo;
-		Descripcion = descripcion;
+		this.idRespuesta = idRespuesta;
+		this.reclamo = reclamo;
+		this.descripcion = descripcion;
 	}
 	
 	public int getIdRespuesta() {
-		return IdRespuesta;
+		return idRespuesta;
 	}
 	public void setIdRespuesta(int idRespuesta) {
-		IdRespuesta = idRespuesta;
+		this.idRespuesta = idRespuesta;
 	}
 	public Reclamo getReclamo() {
-		return Reclamo;
+		return reclamo;
 	}
 	public void setReclamo(Reclamo reclamo) {
-		Reclamo = reclamo;
+		this.reclamo = reclamo;
 	}
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 	
 	

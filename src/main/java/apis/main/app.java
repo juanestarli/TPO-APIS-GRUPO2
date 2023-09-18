@@ -34,7 +34,7 @@ public class app {
 		Departamento piso7b = new Departamento(7,'b',Juan,false);
 		Departamento piso5a = new Departamento(5,'a',Juan,false);
 		Departamento piso3b = new Departamento(3,'b',Rafa,false);
-		
+	
 		//instanciar espacios comunes
 		EspacioComun Pileta = new EspacioComun(15, "Pileta", "Sector pileta");
 		EspacioComun Sum = new EspacioComun(15, "Sum", "Salon de usos multiples");
@@ -45,8 +45,11 @@ public class app {
 		Usuario Ramon = new Usuario("Ramon","Perez","26875687","Ramon1234");
 		Usuario Marta = new Usuario("Marta","Gonzalez","4352676","Marta1234");
 		
-
-		session.save(arcos2000);
+		//instanciar Reclamos
+		Reclamo reclamo1 = new Reclamo(Marta, arcos2000, piso3b, null, 
+				"se me rompió la cañería, y tengo el living inundado", "foto de la cañería");
+		
+		//session.save(arcos2000);
 	    session.save(Juan);
 	    session.save(Rafa);
 	    session.save(piso7b);
@@ -58,6 +61,8 @@ public class app {
 	    session.save(Juana);
 	    session.save(Ramon);
 	    session.save(Marta);
+		tx.commit();
+		session.save(reclamo1);
 		tx.commit();
 	}
 

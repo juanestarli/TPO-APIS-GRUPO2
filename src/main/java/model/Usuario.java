@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,19 +19,51 @@ import javax.persistence.Table;
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int IdUsuario;
+	private int idUsuario;
 	private String nombre;
 	private String apellido;
 	private String dni;
 	private String contrasena;
+	@ManyToOne
+	@JoinColumn(name = "departamento")
 	private Departamento vivienda;
-	@OneToMany(mappedBy = "IdUsuario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL)
 	private List<Departamento> propiedades = new ArrayList<>();
-	@OneToMany(mappedBy = "IdUsuario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Reclamo> reclamos = new ArrayList<>();
-	
+	@ManyToOne
+	@JoinColumn(name = "edificio")
+	private Edificio edificio;
 	
 
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public List<Departamento> getPropiedades() {
+		return propiedades;
+	}
+
+	public void setPropiedades(List<Departamento> propiedades) {
+		this.propiedades = propiedades;
+	}
+
+	public List<Reclamo> getReclamos() {
+		return reclamos;
+	}
+
+	public void setReclamos(List<Reclamo> reclamos) {
+		this.reclamos = reclamos;
+	}
+
+	public Edificio getEdificio() {
+		return edificio;
+	}
+
+	public void setEdificio(Edificio edificio) {
+		this.edificio = edificio;
+	}
 
 	public Usuario(String nombre, String apellido, String dni, String contrasena) {
 		super();
@@ -79,7 +114,7 @@ public class Usuario {
 	}
 	
 	public int getId() {
-		return IdUsuario;
+		return idUsuario;
 	}
 
 	public Departamento getVivienda() {

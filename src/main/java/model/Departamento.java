@@ -19,14 +19,17 @@ import javax.persistence.Table;
 public class Departamento{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int IdDepartamento;
+	private int idDepartamento;
 	private int piso;
 	private char unidad;
 	@ManyToOne
 	@JoinColumn(name = "usuario")
 	private Usuario propietario;
-	@OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "idUsuario", cascade = CascadeType.ALL)
 	private List<Usuario> inquilinos =  new ArrayList<Usuario>();
+	@ManyToOne
+	@JoinColumn(name = "edificio")
+	private Edificio edificio;
 	@Column(name = "alquiler")
 	private boolean alquiler;
 	
