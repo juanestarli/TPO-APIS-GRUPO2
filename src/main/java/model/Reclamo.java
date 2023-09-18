@@ -16,25 +16,26 @@ public class Reclamo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int IdReclamo;
 	@ManyToOne
-	@JoinColumn(name = "IdUsuario")
-	private Usuario Usuario;
-	private Edificio Edificio;
-	private Unidad Unidad;
-	private String Descripcion;
-	private String Foto;
-	private String EstadoReclamo;
-	private RespuestaReclamo Respuesta;
+    @JoinColumn(name = "IdUsuario")
+	private Usuario usuario;
+	private Edificio edificio;
+	private Departamento departamento;
+	private EspacioComun espacioComun;
+	private String descripcion;
+	private String foto;
+	private String estadoReclamo;
+	private RespuestaReclamo respuesta;
 	
 	
-	public Reclamo (Usuario usuario, model.Edificio edificio, model.Unidad unidad,
-			String descripcion, String foto) {
+	public Reclamo (Usuario usuario, model.Edificio edificio, Departamento departamento,EspacioComun esp,String descripcion, String foto) {
 		super();
 		
-		Usuario = usuario;
-		Edificio = edificio;
-		Unidad = unidad;
-		Descripcion = descripcion;
-		Foto = foto;
+		this.usuario = usuario;
+		this.edificio = edificio;
+		this.departamento = departamento;
+		this.espacioComun = esp;
+		this.descripcion = descripcion;
+		this.foto = foto;
 	}
 	public int getIdReclamo() {
 		return IdReclamo;
@@ -43,46 +44,41 @@ public class Reclamo {
 		IdReclamo = idReclamo;
 	}
 	public Usuario getUsuario() {
-		return Usuario;
+		return usuario;
 	}
 	public void setUsuario(Usuario usuario) {
-		Usuario = usuario;
+		usuario = usuario;
 	}
 	public Edificio getEdificio() {
-		return Edificio;
+		return edificio;
 	}
 	public void setEdificio(Edificio edificio) {
-		Edificio = edificio;
+		edificio = edificio;
 	}
-	public Unidad getUnidad() {
-		return Unidad;
-	}
-	public void setUnidad(Unidad unidad) {
-		Unidad = unidad;
-	}
+	
 	public String getDescripcion() {
-		return Descripcion;
+		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+		descripcion = descripcion;
 	}
 	public String getFoto() {
-		return Foto;
+		return foto;
 	}
 	public void setFoto(String foto) {
-		Foto = foto;
+		foto = foto;
 	}
 	public RespuestaReclamo getRespuesta() {
-		return Respuesta;
+		return respuesta;
 	}
 	public void setRespuesta(RespuestaReclamo respuesta) {
-		Respuesta = respuesta;
+		respuesta = respuesta;
 	}
 	public String getEstadoReclamo() {
-		return EstadoReclamo;
+		return estadoReclamo;
 	}
 	public void setEstadoReclamo(String estadoReclamo) {
-		EstadoReclamo = estadoReclamo;
+		estadoReclamo = estadoReclamo;
 	}
 	
 	

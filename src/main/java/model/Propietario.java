@@ -14,30 +14,37 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Propietario")
 public class Propietario extends Usuario{
-	
+	private int IdPropietario;
 	@OneToMany(mappedBy = "IdPropietario", cascade = CascadeType.ALL)
-	private List<Depto> Propiedades;
-	@OneToMany(mappedBy = "IdPropietario", cascade = CascadeType.ALL)
-	private ArrayList<Reclamo> reclamos;
+	private List<Departamento> propiedades = new ArrayList<>();
+	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL)
+	private List<Reclamo> reclamos = new ArrayList<>();
 
 	public Propietario(String nombre, String apellido, String dni, String contraseña) {
 		super(nombre, apellido, dni, contraseña);
-		// TODO Auto-generated constructor stub
-		this.Propiedades= new ArrayList<>();
+		this.IdPropietario=super.getId();
+		
 	}
 
 
-	public void addPropiedades(Depto depto ) {
-		Propiedades.add(depto);
+	public void addPropiedades(Departamento depto ) {
+		propiedades.add(depto);
 	}
 	
-	public List<Depto> getPropiedades() {
-		return Propiedades;
+	public List<Departamento> getPropiedades() {
+		return propiedades;
 	}
 
-	public void setPropiedades(List<Depto> propiedades) {
-		Propiedades = propiedades;
+	public void setPropiedades(List<Departamento> propiedades) {
+		this.propiedades = propiedades;
 	}
+
+
+	public int getIdPropietario() {
+		return IdPropietario;
+	}
+
+
 
 
 

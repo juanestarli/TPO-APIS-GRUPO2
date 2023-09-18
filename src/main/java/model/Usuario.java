@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,9 +16,9 @@ import javax.persistence.Table;
 
 import org.hibernate.cfg.Configuration;
 
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Usuario {
+@Entity
+@Table(name = "Usuario")
+public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int IdUsuario;
@@ -25,6 +26,12 @@ public abstract class Usuario {
 	private String apellido;
 	private String dni;
 	private String contrasena;
+	private Departamento vivienda;
+	@OneToMany(mappedBy = "IdUsuario", cascade = CascadeType.ALL)
+	private List<Departamento> propiedades = new ArrayList<>();
+	@OneToMany(mappedBy = "IdUsuario", cascade = CascadeType.ALL)
+	private List<Reclamo> reclamos = new ArrayList<>();
+	
 	
 
 
@@ -34,6 +41,7 @@ public abstract class Usuario {
 		this.apellido = apellido;
 		this.dni = dni;
 		this.contrasena = contrasena;
+		this.vivienda=null;
 	}
 
 	public String getNombre() {
@@ -75,8 +83,16 @@ public abstract class Usuario {
 		return "Usuario [nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", contrasena=" + contrasena + "]";
 	}
 	
-	public  int getId() {
+	public int getId() {
 		return IdUsuario;
+	}
+
+	public Departamento getVivienda() {
+		return vivienda;
+	}
+
+	public void setVivienda(Departamento vivienda) {
+		this.vivienda = vivienda;
 	}
 	
 

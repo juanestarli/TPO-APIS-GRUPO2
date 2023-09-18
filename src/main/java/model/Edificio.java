@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +13,9 @@ public class Edificio {
 	private int IdEdificio;
 	private String Calle;
 	private int Altura;
-	private ArrayList<Unidad> Unidades;
-	private ArrayList<Depto> departamentos;
-	private ArrayList<Usuario> usuarios;
+	private List<Unidad> Unidades;
+	private List<Departamento> departamentos;
+	private List<Usuario> usuarios;
 	
 	
 	
@@ -47,10 +48,10 @@ public class Edificio {
 	public void setAltura(int altura) {
 		Altura = altura;
 	}
-	public ArrayList<Unidad> getUnidades() {
+	public List<Unidad> getUnidades() {
 		return Unidades;
 	}
-	public void setUnidades(ArrayList<Unidad> unidades) {
+	public void setUnidades(List<Unidad> unidades) {
 		Unidades = unidades;
 	}
 	@Override
@@ -58,11 +59,11 @@ public class Edificio {
 		return "Edificio [IdEdificio=" + IdEdificio + ", Calle=" + Calle + ", Altura=" + Altura + ", Unidades="
 				+ Unidades + "]";
 	}
-	public ArrayList<Depto> getDepartamentos(){
+	public List<Departamento> getDepartamentos(){
 		return this.departamentos;
 	}
 
-	public ArrayList<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
 	

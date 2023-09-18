@@ -18,10 +18,7 @@ public class app {
 		// TODO Auto-generated method stub
 		Configuration conf = new Configuration().configure();
 		conf.addAnnotatedClass(Usuario.class);
-		conf.addAnnotatedClass(Unidad.class);
-		conf.addAnnotatedClass(Inquilino.class);
-		conf.addAnnotatedClass(Propietario.class);
-		conf.addAnnotatedClass(Depto.class);
+		conf.addAnnotatedClass(Departamento.class);
 		conf.addAnnotatedClass(Edificio.class);
 		conf.addAnnotatedClass(EspacioComun.class);
 		conf.addAnnotatedClass(Reclamo.class);
@@ -31,41 +28,42 @@ public class app {
 		Session session = sf.openSession();
 
 		Transaction tx = session.beginTransaction();
-		
+		//instanciar edificio
 		Edificio arcos2000 = new Edificio("Arcos", 2000, new ArrayList<Unidad>());
+		//instanciar propietarios
 		Propietario Juan = new Propietario("Juan","Estarli","44161556","Juan1234");
-		Depto piso7b = new Depto(7,Juan,false);
-		Depto piso5a = new Depto(5,Juan,false);
-		Depto piso3b = new Depto(3,Juan,false);
+		Propietario Rafa = new Propietario("Rafael","Gini","43651556","Rafa1234");
+		
+		//instanciar deptos
+		Departamento piso7b = new Departamento(7,'b',Juan,false);
+		Departamento piso5a = new Departamento(5,'a',Juan,false);
+		Departamento piso3b = new Departamento(3,'b',Rafa,false);
+		//instanciar espacios comunes
 		EspacioComun Pileta = new EspacioComun(15, "Pileta", "Sector pileta");
+		EspacioComun Sum = new EspacioComun(15, "Sum", "Salon de usos multiples");
+		//instanciar inquilinos
+		Inquilino Martin = new Inquilino("Martin", "Ramirez", "45637263", "Martin1234", piso3b);
+		Inquilino Juana = new Inquilino("Juana","Garcia","64758798","Juana1234",piso3b);
+		Inquilino Ramon = new Inquilino("Ramon","Perez","26875687","Ramon1234",piso7b);
+		Inquilino Marta = new Inquilino("Marta","Gonzalez","4352676","Marta1234",piso5a);
 		
 
+		session.save(arcos2000);
+	    session.save(Juan);
+	    session.save(Rafa);
+	    session.save(piso7b);
+	    session.save(piso5a);
+	    session.save(piso3b);
+	    session.save(Pileta);
+	    session.save(Sum);
+	    session.save(Martin);
+	    session.save(Juana);
+	    session.save(Ramon);
+	    session.save(Marta);
 		tx.commit();
 	}
 
-	public static void oneToMany(Session session) {
-
-		Propietario juan = new Propietario("Juan", "Estarli", "44161556", "juan1234");
-		Depto depto1 = new Depto(7, juan, false);
-		Depto depto2 = new Depto(8, juan, false);
-		
-		juan.getPropiedades().add(depto1);
-		juan.getPropiedades().add(depto2);
-		depto1.setPropietario(juan);
-		depto2.setPropietario(juan);
-
-		session.beginTransaction();
-
-		session.save(juan);
-		session.getTransaction().commit();
-
-		// Mostrando el registro insertado
-		session.beginTransaction();
-		Propietario res = session.get(Propietario.class, 1);
-		session.getTransaction().commit();
-		System.out.println(res);
-
-	}
+	
 	//------------------- NUEVO POR RAFA ---------------------
 	
 		public static void generarReclamoEspacioComun(int userId, int edificioId, int espacioComunId, String descripcionReclamo, String urlImagen, Session session) {
@@ -79,14 +77,14 @@ public class app {
 		}
 		
 		public static void generarReclamoParticular(int userId, int edificioId, int departamentoId, String descripcionReclamo, String urlImagen, Session session) {
-			Depto departamento = getDepartamentoHQL(departamentoId, session);
+			Departamento departamento = getDepartamentoHQL(departamentoId, session);
 			if (departamento.getInqulinos().size() != 0 && departamento.getPropietario().getId() == userId) 
 				return;
 			if (!pertenece(userId, departamento.getInqulinos()) && departamento.getPropietario().getId() != userId) 
 				return;
 			Usuario user = getUsuarioHQL(userId, session);
 			Edificio edificio = getEdificioHQL(edificioId, session);
-			Depto unidad = getDepartamentoHQL(departamentoId, session);
+			Departamento unidad = getDepartamentoHQL(departamentoId, session);
 			Reclamo nuevoReclamo = new Reclamo(user, edificio, unidad, descripcionReclamo, urlImagen);
 		}
 		
@@ -116,8 +114,8 @@ public class app {
 			return session.get(Edificio.class, edificioId);
 		}
 		
-		private static Depto getDepartamentoHQL(int departamentoId, Session session) {
-			return session.get(Depto.class, departamentoId);
+		private static Departamento getDepartamentoHQL(int departamentoId, Session session) {
+			return session.get(Departamento.class, departamentoId);
 		}
 		
 		private static Usuario getUsuarioHQL(int userId, Session session) {

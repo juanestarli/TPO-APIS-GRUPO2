@@ -29,5 +29,8 @@ public abstract class Unidad {
 		Piso = piso;
 	}
 	
+	public int getId() {
+		return IdUnidad;
+	}
 	
 }

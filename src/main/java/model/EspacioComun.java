@@ -6,16 +6,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class EspacioComun extends Unidad{
+public class EspacioComun{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int IdEspacioComun;
+	private int idEspacioComun;
+	private int piso;
 	private String nombre;
 	private String descripcion;
 	
 	
-	public EspacioComun( int Piso, String nombre, String descripcion) {
-		super(Piso);
+	public EspacioComun( int piso, String nombre, String descripcion) {
+		this.setPiso(piso);
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 	}
@@ -31,6 +32,14 @@ public class EspacioComun extends Unidad{
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public int getPiso() {
+		return piso;
+	}
+
+	public void setPiso(int piso) {
+		this.piso = piso;
 	}
 	
 	
