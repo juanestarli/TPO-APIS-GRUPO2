@@ -67,8 +67,6 @@ public class app {
 	    session.save(Juana);
 	    session.save(Ramon);
 	    session.save(Marta);
-	    
-		tx.commit();
 		
 		String descripcionreclamo1 = "Se me rompio la canieria, y tengo el living inundado";
 		String foto1 = "Foto de la canieria";
@@ -76,8 +74,16 @@ public class app {
 		String descripcionreclamo2 = "Esta perdiendo agua la pileta!!";
 		String foto2 = "Foto de la pileta";
 		
-		generarReclamoParticular(Marta.getId(), arcos2000.getIdEdificio(), piso3b.getId(), descripcionreclamo1, foto1, session);
-		generarReclamoEspacioComun(Ramon.getId(), arcos2000.getIdEdificio(), Pileta.getId(), descripcionreclamo2, foto2, session);
+		Reclamo nuevoReclamo = new Reclamo(Marta, arcos2000, piso3b, null, descripcionreclamo1, foto1);
+		session.save(nuevoReclamo);
+		
+		nuevoReclamo = new Reclamo(Ramon, arcos2000, null, Pileta, descripcionreclamo2, foto2);
+		session.save(nuevoReclamo);
+		
+		tx.commit();
+
+		//generarReclamoParticular(Marta.getId(), arcos2000.getIdEdificio(), piso3b.getId(), descripcionreclamo1, foto1, session);
+		//generarReclamoEspacioComun(Ramon.getId(), arcos2000.getIdEdificio(), Pileta.getId(), descripcionreclamo2, foto2, session);
 		
 		System.out.println();
 		System.out.println("----------------------------------");
