@@ -46,6 +46,10 @@ public class EspacioComun{
 	public void setPiso(int piso) {
 		this.piso = piso;
 	}
+
+	public int getId() {
+		return idEspacioComun;
+	}
 	
 	
 }

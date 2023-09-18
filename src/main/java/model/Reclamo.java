@@ -52,7 +52,7 @@ public class Reclamo {
 	}
 	
 	public void setIdReclamo(int idReclamo) {
-		idReclamo = idReclamo;
+		this.idReclamo = idReclamo;
 	}
 	
 	public Usuario getUsuario() {
