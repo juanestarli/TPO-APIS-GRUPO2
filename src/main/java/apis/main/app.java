@@ -1,14 +1,10 @@
 package apis.main;
 
-import org.hibernate.Hibernate;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import model.*;
 
@@ -29,7 +25,7 @@ public class app {
 
 		Transaction tx = session.beginTransaction();
 		//instanciar edificio
-		Edificio arcos2000 = new Edificio("Arcos", 2000, new ArrayList<Unidad>());
+		Edificio arcos2000 = new Edificio("Arcos", 2000);
 		//instanciar Usuarios
 		Usuario Juan = new Usuario("Juan","Estarli","44161556","Juan1234");
 		Usuario Rafa = new Usuario("Rafael","Gini","43651556","Rafa1234");
@@ -38,9 +34,11 @@ public class app {
 		Departamento piso7b = new Departamento(7,'b',Juan,false);
 		Departamento piso5a = new Departamento(5,'a',Juan,false);
 		Departamento piso3b = new Departamento(3,'b',Rafa,false);
+		
 		//instanciar espacios comunes
 		EspacioComun Pileta = new EspacioComun(15, "Pileta", "Sector pileta");
 		EspacioComun Sum = new EspacioComun(15, "Sum", "Salon de usos multiples");
+		
 		//instanciar Usuarios
 		Usuario Martin = new Usuario("Martin", "Ramirez", "45637263", "Martin1234");
 		Usuario Juana = new Usuario("Juana","Garcia","64758798","Juana1234");
@@ -70,22 +68,23 @@ public class app {
 			if (pertenece(userId, edificioId, session)) {
 				Usuario user = getUsuarioHQL(userId, session);
 				Edificio edificio = getEdificioHQL(edificioId, session);
-				Unidad unidad = getUnidadHQL(espacioComunId, session);
-				Reclamo nuevoReclamo = new Reclamo(user, edificio, unidad, descripcionReclamo, urlImagen);
+				EspacioComun espacioComun = getEspacioComunHQL(espacioComunId, session);
+				Reclamo nuevoReclamo = new Reclamo(user, edificio,  null, espacioComun, descripcionReclamo, urlImagen);
 				persistirReclamo(nuevoReclamo);
 			}
 		}
-		
+
+
 		public static void generarReclamoParticular(int userId, int edificioId, int departamentoId, String descripcionReclamo, String urlImagen, Session session) {
 			Departamento departamento = getDepartamentoHQL(departamentoId, session);
-			if (departamento.getInqulinos().size() != 0 && departamento.getUsuario().getId() == userId) 
-				return;
-			if (!pertenece(userId, departamento.getInqulinos()) && departamento.getUsuario().getId() != userId) 
-				return;
-			Usuario user = getUsuarioHQL(userId, session);
-			Edificio edificio = getEdificioHQL(edificioId, session);
-			Departamento unidad = getDepartamentoHQL(departamentoId, session);
-			Reclamo nuevoReclamo = new Reclamo(user, edificio, unidad, descripcionReclamo, urlImagen);
+			boolean esInquilino = pertenece(userId, departamento.getInqulinos());
+			int cantidadHabitantes = departamento.getInqulinos().size();
+			if ( esInquilino || (cantidadHabitantes == 0 && esPropietario(userId, departamento)) ) {
+				Usuario user = getUsuarioHQL(userId, session);
+				Edificio edificio = getEdificioHQL(edificioId, session);
+				Reclamo nuevoReclamo = new Reclamo(user, edificio, departamento, null, descripcionReclamo, urlImagen);
+				persistirReclamo(nuevoReclamo);
+			}
 		}
 		
 		private static void persistirReclamo(Reclamo nuevoReclamo) {
@@ -121,10 +120,15 @@ public class app {
 		private static Usuario getUsuarioHQL(int userId, Session session) {
 			return session.get(Usuario.class, userId);
 		}
-		
-		private static Unidad getUnidadHQL(int unidadId, Session session) {
-			return session.get(Unidad.class, unidadId);
-		}
 	
+		private static EspacioComun getEspacioComunHQL(int espacioComunId, Session session) {
+			return session.get(EspacioComun.class, espacioComunId);
+		}
+		
+		private static boolean esPropietario(int userId, Departamento depto) {
+			return depto.getPropietario().getId() == userId;
+		}
+		
+		
 
 }

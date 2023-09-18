@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -39,7 +38,6 @@ public class Departamento{
 		this.alquiler = alquiler;
 	}
 	
-	
 	public void AgregarInquilino(Usuario inquilino) {
 		inquilinos.add(inquilino);
 	}
@@ -47,7 +45,6 @@ public class Departamento{
 	public void EliminarInquilino(Usuario inquilino) {
 		inquilinos.remove(inquilino);
 	}
-	
 	
 	public Usuario getPropietario() {
 		return propietario;
@@ -68,21 +65,17 @@ public class Departamento{
 		this.alquiler = alquiler;
 	}
 
-
 	public int getPiso() {
 		return piso;
 	}
-
 
 	public void setPiso(int piso) {
 		this.piso = piso;
 	}
 
-
 	public char getUnidad() {
 		return unidad;
 	}
-
 
 	public void setUnidad(char unidad) {
 		this.unidad = unidad;

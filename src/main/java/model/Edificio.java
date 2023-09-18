@@ -13,25 +13,21 @@ public class Edificio {
 	private int IdEdificio;
 	private String Calle;
 	private int Altura;
-	private List<Unidad> Unidades;
+	private List<EspacioComun> espaciosComunes;
 	private List<Departamento> departamentos;
 	private List<Usuario> usuarios;
 	
 	
 	
-	public Edificio(String calle, int altura, ArrayList<Unidad> unidades) {
+	public Edificio(String calle, int altura) {
 		super();
 		Calle = calle;
 		Altura = altura;
-		Unidades = unidades;
+		espaciosComunes = new ArrayList<>();
+		departamentos = new ArrayList<>();
 		
 	}
 	
-	public Edificio() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	public int getIdEdificio() {
 		return IdEdificio;
 	}
@@ -48,16 +44,16 @@ public class Edificio {
 	public void setAltura(int altura) {
 		Altura = altura;
 	}
-	public List<Unidad> getUnidades() {
-		return Unidades;
+	public List<EspacioComun> getEspaciosComunes() {
+		return espaciosComunes;
 	}
-	public void setUnidades(List<Unidad> unidades) {
-		Unidades = unidades;
+	public void setEspaciosComunes(List<EspacioComun> espaciosComunes) {
+		this.espaciosComunes = espaciosComunes;
 	}
 	@Override
 	public String toString() {
 		return "Edificio [IdEdificio=" + IdEdificio + ", Calle=" + Calle + ", Altura=" + Altura + ", Unidades="
-				+ Unidades + "]";
+				+ departamentos + ", Altura=" + espaciosComunes + "]";
 	}
 	public List<Departamento> getDepartamentos(){
 		return this.departamentos;
