@@ -83,6 +83,10 @@ public class Departamento{
 	public void setUnidad(char unidad) {
 		this.unidad = unidad;
 	}
+
+	public int getId() {
+		return idDepartamento;
+	}
 	
 	
 }
