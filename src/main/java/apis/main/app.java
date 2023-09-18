@@ -1,12 +1,10 @@
 package apis.main;
 
 
-import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-
 import java.util.List;
 import model.*;
 
@@ -51,7 +49,7 @@ public class app {
 		Reclamo reclamo1 = new Reclamo(Marta, arcos2000, piso3b, null, 
 				"se me rompió la cañería, y tengo el living inundado", "foto de la cañería");
 		
-		session.save(arcos2000);
+		//session.save(arcos2000);
 	    session.save(Juan);
 	    session.save(Rafa);
 	    session.save(piso7b);
@@ -71,17 +69,13 @@ public class app {
 	
 	//------------------- NUEVO POR RAFA ---------------------
 	
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
-		Session session = sf.openSession();
-		
 		public static void generarReclamoEspacioComun(int userId, int edificioId, int espacioComunId, String descripcionReclamo, String urlImagen, Session session) {
 			if (pertenece(userId, edificioId, session)) {
 				Usuario user = getUsuarioHQL(userId, session);
 				Edificio edificio = getEdificioHQL(edificioId, session);
 				EspacioComun espacioComun = getEspacioComunHQL(espacioComunId, session);
 				Reclamo nuevoReclamo = new Reclamo(user, edificio,  null, espacioComun, descripcionReclamo, urlImagen);
-				persistirReclamo(nuevoReclamo, session);
+				persistirReclamo(nuevoReclamo);
 			}
 		}
 
@@ -94,25 +88,12 @@ public class app {
 				Usuario user = getUsuarioHQL(userId, session);
 				Edificio edificio = getEdificioHQL(edificioId, session);
 				Reclamo nuevoReclamo = new Reclamo(user, edificio, departamento, null, descripcionReclamo, urlImagen);
-				persistirReclamo(nuevoReclamo, session);
+				persistirReclamo(nuevoReclamo);
 			}
 		}
 		
-		private static void persistirReclamo(Reclamo nuevoReclamo, Session session) {
-		    Transaction tx = session.beginTransaction();
-		    try {
-		        session.save(nuevoReclamo); 
-		        tx.commit(); 
-		    } catch (Exception e) {
-		        if (tx != null) {
-		            tx.rollback(); 
-		        }
-		        e.printStackTrace();
-		    } finally {
-		        session.close(); 
-		    }
-		    
-		    System.out.println("Reclamo persistido:" + nuevoReclamo.getIdReclamo());
+		private static void persistirReclamo(Reclamo nuevoReclamo) {
+			//PERSISIR UN RECLAMO
 		}
 		
 		private static boolean pertenece(int userID, int edificioId, Session session) {
@@ -131,23 +112,6 @@ public class app {
 			while (i < cantidadUsuarios && Usuarios.get(i).getId() != userId)
 				i++;
 			return i != cantidadUsuarios;
-		}
-		
-		public static List<Reclamo> consultarReclamosPorEdificioYEstado(int edificioId, String estadoReclamo, Session session) {
-		    String hql = "FROM Reclamo r WHERE r.edificio.id = :edificioId AND r.estadoReclamo = :estadoReclamo";
-		    Query<Reclamo> query = session.createQuery(hql, Reclamo.class);
-		    query.setParameter("edificioId", edificioId);
-		    query.setParameter("estadoReclamo", estadoReclamo);
-		    List<Reclamo> reclamos = query.getResultList();
-		    return reclamos;
-		}
-		
-		public static List<Reclamo> consultarReclamosPorEstado(String estadoReclamo, Session session) {
-		    String hql = "FROM Reclamo r WHERE r.estadoReclamo = :estadoReclamo";
-		    Query<Reclamo> query = session.createQuery(hql, Reclamo.class);
-		    query.setParameter("estadoReclamo", estadoReclamo);
-		    List<Reclamo> reclamos = query.getResultList();
-		    return reclamos;
 		}
 
 		private static Edificio getEdificioHQL(int edificioId, Session session) {
@@ -170,6 +134,6 @@ public class app {
 			return depto.getPropietario().getId() == userId;
 		}
 		
-
+		
 
 }
