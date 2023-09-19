@@ -81,6 +81,13 @@ public class Edificio {
 	public List<Departamento> getDepartamentos(){
 		return this.departamentos;
 	}
+	
+	public void addUsuarios(Usuario usuario) {
+		this.usuarios.add(usuario);
+	}
+	public void removeUsuarios(Usuario usuario) {
+		this.usuarios.remove(usuario);
+	}
 
 	
 	
