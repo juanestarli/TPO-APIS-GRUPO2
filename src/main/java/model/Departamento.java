@@ -39,14 +39,17 @@ public class Departamento{
 		this.setUnidad(unidad);
 		this.propietario= propietario;
 		this.alquiler = alquiler;
+		
 	}
 	
 	public void AgregarInquilino(Usuario inquilino) {
 		inquilinos.add(inquilino);
+		this.edificio.addUsuarios(inquilino);
 	}
 	
 	public void EliminarInquilino(Usuario inquilino) {
 		inquilinos.remove(inquilino);
+		this.edificio.addUsuarios(propietario);
 	}
 	
 	public Usuario getPropietario() {
@@ -54,13 +57,12 @@ public class Departamento{
 	}
 	public void setPropietario(Usuario propietario) {
 		this.propietario = propietario;
+		this.edificio.addUsuarios(propietario);
 	}
 	public List<Usuario> getInqulinos() {
 		return inquilinos;
 	}
-	public void setInqulinos(List<Usuario> inqulinos) {
-		inquilinos = inqulinos;
-	}
+	
 	public boolean isAlquiler() {
 		return alquiler;
 	}
@@ -87,6 +89,20 @@ public class Departamento{
 	public int getId() {
 		return idDepartamento;
 	}
+
+	public List<Usuario> getInquilinos() {
+		return inquilinos;
+	}
+
+	public Edificio getEdificio() {
+		return edificio;
+	}
+
+	public void setEdificio(Edificio edificio) {
+		this.edificio = edificio;
+	}
+	
+	
 	
 	
 }
