@@ -89,6 +89,13 @@ public class Edificio {
 		this.usuarios.remove(usuario);
 	}
 
+	public void setIdEdificio(int int1) {
+		// TODO Auto-generated method stub
+		this.idEdificio=int1;
+		
+	}
+
+
 	
 	
 }

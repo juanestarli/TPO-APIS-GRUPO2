@@ -21,7 +21,7 @@ public class Departamento{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idDepartamento;
 	private int piso;
-	private char unidad;
+	private String unidad;
 	@ManyToOne
 	@JoinColumn(name = "usuario")
 	private Usuario propietario;
@@ -34,7 +34,7 @@ public class Departamento{
 	private boolean alquiler;
 	
 	
-	public Departamento(int Piso, char unidad, Usuario propietario, boolean alquiler) {
+	public Departamento(int Piso, String unidad, Usuario propietario, boolean alquiler) {
 		this.setPiso(Piso);
 		this.setUnidad(unidad);
 		this.propietario= propietario;
@@ -52,8 +52,8 @@ public class Departamento{
 		this.edificio.addUsuarios(propietario);
 	}
 	
-	public Usuario getPropietario() {
-		return propietario;
+	public int getPropietario() {
+		return propietario.getId();
 	}
 	public void setPropietario(Usuario propietario) {
 		this.propietario = propietario;
@@ -78,34 +78,38 @@ public class Departamento{
 		this.piso = piso;
 	}
 
-	public char getUnidad() {
+	public String getUnidad() {
 		return unidad;
 	}
 
-	public void setUnidad(char unidad) {
-		this.unidad = unidad;
+	public void setUnidad(String unidad2) {
+		this.unidad = unidad2;
 	}
 
 	public int getId() {
 		return idDepartamento;
 	}
-<<<<<<< HEAD
-=======
+
 
 	public List<Usuario> getInquilinos() {
 		return inquilinos;
 	}
 
-	public Edificio getEdificio() {
-		return edificio;
+	public int getEdificio() {
+		return edificio.getIdEdificio();
 	}
 
 	public void setEdificio(Edificio edificio) {
 		this.edificio = edificio;
 	}
+
+	public void setIdDepartamento(int int1) {
+		// TODO Auto-generated method stub
+		this.idDepartamento = int1;
+		
+	}
 	
-	
->>>>>>> Juan
+
 	
 	
 }

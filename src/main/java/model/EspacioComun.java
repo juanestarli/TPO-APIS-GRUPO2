@@ -26,6 +26,15 @@ public class EspacioComun{
 		this.descripcion = descripcion;
 	}
 	
+	public EspacioComun(int id, String desc, String nombre, int piso, Edificio edificio2) {
+		// TODO Auto-generated constructor stub
+		this.idEspacioComun=id;
+		this.descripcion=desc;
+		this.nombre=nombre;
+		this.piso=piso;
+		this.edificio=edificio2;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -49,6 +58,11 @@ public class EspacioComun{
 
 	public int getId() {
 		return idEspacioComun;
+	}
+
+	public Edificio getEdificio() {
+		// TODO Auto-generated method stub
+		return this.edificio;
 	}
 	
 	
