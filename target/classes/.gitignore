@@ -1,5 +1,4 @@
-/META-INF/
-/apis/
-/daoImpl/
 /model/
-/daoInterf/
+/apis/
+/config/
+/test/

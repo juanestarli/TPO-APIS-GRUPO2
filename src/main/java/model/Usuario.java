@@ -13,28 +13,46 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name = "Usuario")
+@Component
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idUsuario;
+	
 	private String nombre;
 	private String apellido;
 	private String dni;
 	private String contrasena;
+	
 	@ManyToOne
 	@JoinColumn(name = "departamento")
+	@Autowired
 	private Departamento vivienda;
+	
 	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL)
+	@Autowired
 	private List<Departamento> propiedades = new ArrayList<>();
+	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@Autowired
 	private List<Reclamo> reclamos = new ArrayList<>();
+	
 	@ManyToOne
 	@JoinColumn(name = "edificio")
+	@Autowired
 	private Edificio edificio;
 	
 
+
+	public Usuario() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getIdUsuario() {
 		return idUsuario;
@@ -109,7 +127,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", contrasena=" + contrasena + "]";
+		return "Usuario [nombre = " + nombre + ", apellido = " + apellido + ", dni = " + dni + ", contrasena = " + contrasena + "]";
 	}
 	
 	public int getId() {
@@ -122,6 +140,10 @@ public class Usuario {
 
 	public void setVivienda(Departamento vivienda) {
 		this.vivienda = vivienda;
+	}
+
+	public void agregarPropiedad(Departamento dept) {
+		propiedades.add(dept);
 	}
 	
 

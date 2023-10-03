@@ -14,22 +14,34 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name = "Departamento")
+@Component
 public class Departamento{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idDepartamento;
+	
 	private int piso;
 	private String unidad;
+	
 	@ManyToOne
 	@JoinColumn(name = "usuario")
+	@Autowired
 	private Usuario propietario;
+	
 	@OneToMany(mappedBy = "idUsuario", cascade = CascadeType.ALL)
 	private List<Usuario> inquilinos =  new ArrayList<Usuario>();
+	
 	@ManyToOne
 	@JoinColumn(name = "edificio")
+	@Autowired
 	private Edificio edificio;
+	
 	@Column(name = "alquiler")
 	private boolean alquiler;
 	
@@ -39,7 +51,10 @@ public class Departamento{
 		this.unidad = unidad;
 		this.propietario = propietario;
 		this.alquiler = alquiler;
-		
+	}
+	
+	public Departamento() {
+		super();
 	}
 	
 	public void AgregarInquilino(Usuario inquilino) {
@@ -108,6 +123,15 @@ public class Departamento{
 		this.idDepartamento = int1;
 		
 	}
+
+	@Override
+	public String toString() {
+		return "Departamento [idDepartamento = " + idDepartamento + ", piso = " + piso + ", unidad = " + unidad
+				+ ", propietario = " + propietario + ", inquilinos = " + inquilinos + ", edificio = " + edificio
+				+ ", alquiler = " + alquiler + "]";
+	}
+	
+	
 	
 
 	

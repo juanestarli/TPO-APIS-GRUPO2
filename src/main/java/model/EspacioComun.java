@@ -6,15 +6,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Entity
+@Table(name = "EspacioComun")
+@Component
 public class EspacioComun{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEspacioComun;
+	
 	@ManyToOne
 	@JoinColumn(name = "edificio")
+	@Autowired
 	private Edificio edificio;
+	
 	private int piso;
 	private String nombre;
 	private String descripcion;
@@ -26,6 +35,15 @@ public class EspacioComun{
 		this.descripcion = descripcion;
 	}
 	
+	
+	
+	public EspacioComun() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public EspacioComun(int id, String desc, String nombre, int piso, Edificio edificio2) {
 		// TODO Auto-generated constructor stub
 		this.idEspacioComun=id;

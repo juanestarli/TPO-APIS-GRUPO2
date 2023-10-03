@@ -10,29 +10,44 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name = "Reclamo")
+@Component
 public class Reclamo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idReclamo;
+	
 	@ManyToOne
     @JoinColumn(name = "IdUsuario")
+	@Autowired
 	private Usuario usuario;
+	
 	@ManyToOne
     @JoinColumn(name = "idEdificio")
+	@Autowired
 	private Edificio edificio;
+	
 	@ManyToOne
     @JoinColumn(name = "idDepartamento")
+	@Autowired
 	private Departamento departamento;
+	
 	@ManyToOne
     @JoinColumn(name = "idEspacioComun")
+	@Autowired
 	private EspacioComun espacioComun;
+	
 	private String descripcion;
 	private String foto;
 	private String estadoReclamo;
+	
 	@OneToOne(mappedBy = "reclamo", cascade = CascadeType.ALL)
+	@Autowired
 	private RespuestaReclamo respuesta;
 	
 	
@@ -47,6 +62,11 @@ public class Reclamo {
 		this.foto = foto;
 	}
 	
+	public Reclamo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdReclamo() {
 		return idReclamo;
 	}
