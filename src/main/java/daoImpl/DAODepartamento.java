@@ -4,9 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mysql.cj.Session;
-
 import model.*;
 import daoInterf.DAODepartamentoInt;
 
@@ -53,7 +50,7 @@ public class DAODepartamento extends Conexion implements DAODepartamentoInt{
 			statement.setInt(3, departamento.getPiso());
 			statement.setString(4, departamento.getUnidad());
 			statement.setInt(5, departamento.getEdificio());
-			statement.setInt(6, departamento.getPropietario());
+			statement.setInt(6, departamento.getPropietario().getId());
 
 			// Ejecutar la inserciÃ³n en la base de datos
 			statement.executeUpdate();
@@ -70,7 +67,6 @@ public class DAODepartamento extends Conexion implements DAODepartamentoInt{
 
 	@Override
 	public void read(Departamento departamento) throws Exception {
-		int id = departamento.getId();
 		Departamento d = null;
 		try {
 			String getQuery = "SELECT * FROM departamento where idDepartamento ={id}";
@@ -142,7 +138,7 @@ public class DAODepartamento extends Conexion implements DAODepartamentoInt{
 			// Establecer los valores en la query
 			statement.setInt(1, departamento.getId());
 
-			// Ejecutar la eliminación en la base de datos
+			// Ejecutar la eliminaciï¿½n en la base de datos
 			int filasEliminadas = statement.executeUpdate();
 
 			if (filasEliminadas > 0) {

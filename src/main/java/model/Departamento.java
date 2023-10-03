@@ -34,10 +34,10 @@ public class Departamento{
 	private boolean alquiler;
 	
 	
-	public Departamento(int Piso, String unidad, Usuario propietario, boolean alquiler) {
-		this.setPiso(Piso);
-		this.setUnidad(unidad);
-		this.propietario= propietario;
+	public Departamento(int piso, String unidad, Usuario propietario, boolean alquiler) {
+		this.piso = piso;
+		this.unidad = unidad;
+		this.propietario = propietario;
 		this.alquiler = alquiler;
 		
 	}
@@ -52,8 +52,8 @@ public class Departamento{
 		this.edificio.addUsuarios(propietario);
 	}
 	
-	public int getPropietario() {
-		return propietario.getId();
+	public Usuario getPropietario() {
+		return propietario;
 	}
 	public void setPropietario(Usuario propietario) {
 		this.propietario = propietario;

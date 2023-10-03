@@ -39,28 +39,22 @@ public class app {
 	private static void test1(SessionFactory sf, Session session, Transaction tx) {
 		
 		Edificio arcos2000 = new Edificio("Arcos", 2000);
-
-		
-		Usuario Juan = new Usuario("Juan","Estarli","44161556","Juan1234");
-		Usuario Rafa = new Usuario("Rafael","Gini","43651556","Rafa1234");
-		
-		Departamento piso7b = new Departamento(7,'b',Juan,false);
-		Departamento piso5a = new Departamento(5,'a',Juan,false);
-		Departamento piso3b = new Departamento(3,'b',Rafa,false);
-	
 		session.save(arcos2000);
+
 		
 		Usuario Juan = new Usuario("Juan","Estarli","44161556","Juan1234");
 		Usuario Rafa = new Usuario("Rafael","Gini","43651556","Rafa1234");
 		session.save(Juan);
 	    session.save(Rafa);
-	    
-		Departamento piso7b = new Departamento(7,'b',Juan,false);
-		Departamento piso5a = new Departamento(5,'a',Juan,false);
-		Departamento piso3b = new Departamento(3,'b',Rafa,false);
+		
+		Departamento piso7b = new Departamento(7,"b",Juan,false);
+		Departamento piso5a = new Departamento(5,"a",Juan,false);
+		Departamento piso3b = new Departamento(3,"b",Rafa,false);
+		
 		piso7b.setEdificio(arcos2000);
 		piso5a.setEdificio(arcos2000);
 		piso3b.setEdificio(arcos2000);
+		
 		session.save(piso7b);
 		session.save(piso5a);
 	    session.save(piso3b);
@@ -68,6 +62,7 @@ public class app {
 
 		EspacioComun Pileta = new EspacioComun(15, "Pileta", "Sector pileta");
 		EspacioComun Sum = new EspacioComun(15, "Sum", "Salon de usos multiples");
+		
 		session.save(Pileta);
 	    session.save(Sum);
 		
@@ -95,14 +90,11 @@ public class app {
 	    session.save(Ramon);
 	    session.save(Marta);
 		
-	   
 	    piso7b.AgregarInquilino(Marta);
 	    piso7b.AgregarInquilino(Martin);
 	    piso5a.AgregarInquilino(Ramon);
 	    piso3b.AgregarInquilino(Juana);
 	  
-
-	    
 		tx.commit();
 		
 		String descripcionreclamo1 = "Se me rompio la canieria, y tengo el living inundado";
@@ -110,25 +102,17 @@ public class app {
 		
 		String descripcionreclamo2 = "Esta perdiendo agua la pileta!!";
 		String foto2 = "Foto de la pileta";
-		
-		
 
 		generarReclamoParticular(Marta.getId(), arcos2000.getIdEdificio(), piso3b.getId(), descripcionreclamo1, foto1, session);
 		generarReclamoEspacioComun(Ramon.getId(), arcos2000.getIdEdificio(), Pileta.getId(), descripcionreclamo2, foto2, session);
 		
-		
-		
-
-		generarReclamoParticular(Marta.getId(), arcos2000.getIdEdificio(), piso7b.getId(), descripcionreclamo1, foto1, session);
-		generarReclamoEspacioComun(Ramon.getId(), arcos2000.getIdEdificio(), Pileta.getId(), descripcionreclamo2, foto2, session);
-		
+		session.close();
 
 		System.out.println();
 		System.out.println("----------------------------------");
 		System.out.println("------------ TODO OK. ------------");
 		System.out.println("----------------------------------");
 		System.out.println();
-session.close();
 
 	}
 	
@@ -141,8 +125,6 @@ session.close();
 			persistirReclamo(nuevoReclamo, session);
 		}
 	}
-
-
 
 	public static void generarReclamoParticular(int userId, int edificioId, int departamentoId, String descripcionReclamo, String urlImagen, Session session) {
 		Departamento departamento = getDepartamentoHQL(departamentoId, session);
@@ -169,11 +151,8 @@ session.close();
 	        }
 	        e.printStackTrace();
 	    } finally {
-
 	        session.close(); 
-
 	    }
-	    
 	    System.out.println("Reclamo persistido:" + nuevoReclamo.getIdReclamo());
 	}
 	
@@ -194,13 +173,6 @@ session.close();
 		while (i < cantidadUsuarios && Usuarios.get(i).getId() != userId)
 			i++;
 		return i != cantidadUsuarios;
-
-	 for (Usuario usuario : Usuarios) {
-            if (usuario.getId() == userId) {
-                return true; 
-            }
-        }
-        return false; 
 
 	}
 	

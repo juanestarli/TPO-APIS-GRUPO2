@@ -2,8 +2,6 @@ package daoInterf;
 
 import java.util.List;
 
-import com.mysql.cj.Session;
-
 import model.Departamento;
 
 public interface DAODepartamentoInt {
